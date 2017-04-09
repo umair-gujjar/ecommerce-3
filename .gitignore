@@ -1,3 +1,4 @@
+/.vagrant
 /node_modules
 /public/storage
 /public/hot
@@ -6,4 +7,5 @@
 /.idea
 Homestead.json
 Homestead.yaml
+Vagrantfile
 .env
