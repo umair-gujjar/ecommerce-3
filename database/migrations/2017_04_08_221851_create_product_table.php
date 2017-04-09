@@ -19,7 +19,7 @@ class CreateProductTable extends Migration
             $table->char('sku', 6)->unique();
             $table->string('name', 50);
             $table->text('description');
-            $table->float('price_sterling', 6, 2);
+            $table->float('price_sterling', 8, 2);
             $table->timestamps();
         });
     }
