@@ -23,8 +23,10 @@ class CreateOrderLineTable extends Migration
                 ->onDelete('restrict');
             $table->string('product_sku');
             $table->string('product_name');
-            $table->string('product_price_sterling');
+            $table->float('product_price_sterling', 8, 2);
             $table->integer('quantity')->unsigned();
+            $table->float('subtotal_sterling', 8, 2);
+            $table->timestamps();
         });
     }
 

@@ -22,6 +22,10 @@ class CreateCustomerTable extends Migration
                 ->on('user')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
+            $table->string('title');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->timestamps();
         });
     }
 

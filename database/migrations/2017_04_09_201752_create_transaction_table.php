@@ -21,13 +21,14 @@ class CreateTransactionTable extends Migration
                 ->on('order')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->float('amount_sterlng', 8, 2);
+            $table->float('amount_sterling', 8, 2);
+            $table->string('payment_gateway_sha256', 256)->unique();
             $table->enum('status', [
-                    'pending',
-                    'paid',
-                    'canceled',
-                    'failed'
-                ]);
+                'pending',
+                'paid',
+                'canceled',
+                'failed'
+            ]);
             $table->timestamps();
         });
     }
