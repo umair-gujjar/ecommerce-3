@@ -22,20 +22,21 @@ class CreateAddressTable extends Migration
                 ->on('customer')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('country_id')->unsigned();
+            $table->integer('country_id')->unsigned()->nullable();
             $table->foreign('country_id')
                 ->references('id')
                 ->on('country')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->string('address_1');
-            $table->string('address_2')->nullable();
-            $table->string('address_3')->nullable();
-            $table->string('address_4')->nullable();
+            $table->string('line_1');
+            $table->string('line_2')->nullable();
+            $table->string('line_3')->nullable();
+            $table->string('line_4')->nullable();
             $table->string('town')->nullable();
             $table->string('county')->nullable();
             $table->string('postcode');
             $table->string('telephone', 20);
+            $table->timestamps();
         });
     }
 
