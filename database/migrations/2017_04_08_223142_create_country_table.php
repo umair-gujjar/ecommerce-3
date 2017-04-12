@@ -17,7 +17,6 @@ class CreateCountryTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('iso_code_2');
-            $table->string('iso_code_3');
             $table->string('name');
         });
     }
