@@ -15,7 +15,7 @@ class Customer extends Model
      */
     public function user()
     {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -23,6 +23,6 @@ class Customer extends Model
      */
     public function addresses()
     {
-    	return $this->hasMany(Address::class);
+        return $this->hasMany(Address::class);
     }
 }

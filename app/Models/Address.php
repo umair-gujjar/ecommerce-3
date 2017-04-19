@@ -16,7 +16,7 @@ class Address extends Model
      */
     public function customer()
     {
-    	return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class);
     }
 
     /**
@@ -24,6 +24,6 @@ class Address extends Model
      */
     public function country()
     {
-    	return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class);
     }
 }
