@@ -28,16 +28,16 @@
  <property name="phpunit" value="${basedir}/vendor/bin/phpunit"/>
 
  <target name="full-build"
-         depends="prepare,static-analysis,phpunit,phpdox,-check-failure"
+         depends="prepare,static-analysis,phpunit,phpdox,-check-phpunit-failure"
          description="Performs static analysis, runs the tests, and generates project documentation"/>
 
  <target name="full-build-parallel"
-         depends="prepare,static-analysis-parallel,phpunit,phpdox,-check-failure"
+         depends="prepare,static-analysis-parallel,phpunit,phpdox,-check-phpunit-failure"
          description="Performs static analysis (executing the tools in parallel), runs the tests, and generates project documentation"/>
 
  <target name="quick-build"
-         depends="prepare,lint,phpunit-no-coverage"
-         description="Performs a lint check and runs the tests (without generating code coverage reports)"/>
+         depends="prepare,lint,phpcs,phpunit-no-coverage, -check-phpcs-failure"
+         description="Performs a lint check, code standards check and runs the tests (without generating code coverage reports)"/>
 
  <target name="static-analysis"
          depends="lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci"
@@ -209,17 +209,11 @@
  <target name="phpcs"
          unless="phpcs.done"
          description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
-  <exec executable="${phpcs}" taskname="phpcs">
+  <exec executable="${phpcs}" resultproperty="result.phpcs" taskname="phpcs">
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
    <arg path="${basedir}/app" />
-   <arg path="${basedir}/bootstrap" />
-   <arg path="${basedir}/database" />
-   <arg path="${basedir}/public" />
-   <arg path="${basedir}/routes" />
-   <arg path="${basedir}/resources" />
-   <arg path="${basedir}/tests" />
   </exec>
 
   <property name="phpcs.done" value="true"/>
@@ -229,19 +223,13 @@
          unless="phpcs.done"
          depends="prepare"
          description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">
-  <exec executable="${phpcs}" output="/dev/null" taskname="phpcs">
+  <exec executable="${phpcs}" output="/dev/null" resultproperty="result.phpcs" taskname="phpcs">
    <arg value="--report=checkstyle" />
    <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
    <arg path="${basedir}/app" />
-   <arg path="${basedir}/bootstrap" />
-   <arg path="${basedir}/database" />
-   <arg path="${basedir}/public" />
-   <arg path="${basedir}/routes" />
-   <arg path="${basedir}/resources" />
-   <arg path="${basedir}/tests" />
   </exec>
 
   <property name="phpcs.done" value="true"/>
@@ -304,11 +292,21 @@
   <property name="phpdox.done" value="true"/>
  </target>
 
- <target name="-check-failure">
+ <target name="-check-phpunit-failure">
   <fail message="PHPUnit did not finish successfully">
    <condition>
     <not>
      <equals arg1="${result.phpunit}" arg2="0"/>
+    </not>
+   </condition>
+  </fail>
+ </target>
+
+ <target name="-check-phpcs-failure">
+  <fail message="PHPCS did not finish successfully">
+   <condition>
+    <not>
+     <equals arg1="${result.phpcs}" arg2="0"/>
     </not>
    </condition>
   </fail>
