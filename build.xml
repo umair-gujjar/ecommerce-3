@@ -285,7 +285,7 @@
 
  <target name="phpdox"
          unless="phpdox.done"
-         depends="phploc-ci,phpcs-ci,phpmd-ci"
+         depends="phploc-ci,phpcs-ci"
          description="Generate project documentation using phpDox">
   <exec executable="${phpdox}" dir="${basedir}/build" taskname="phpdox"/>
 
