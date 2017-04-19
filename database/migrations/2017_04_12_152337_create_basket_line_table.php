@@ -21,8 +21,10 @@ class CreateBasketLineTable extends Migration
                 ->on('basket')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->unique(['basket_id', 'product_id']);
             $table->integer('product_id')->unsigned();
             $table->integer('quantity')->unsigned();
+            $table->timestamps();
         });
     }
 
