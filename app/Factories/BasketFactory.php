@@ -12,7 +12,7 @@ class BasketFactory
     {
         $basket = new Basket();
         $decorator = new BasketDecorator($basket);
-        $decorator->setSessionId(SessionService::getSessionId());
+        $decorator->setSessionId(SessionService::getInstance()->getSessionId());
         $basket = $decorator->getModel();
         $basket->save();
 

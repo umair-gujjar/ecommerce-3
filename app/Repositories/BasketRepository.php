@@ -15,7 +15,7 @@ class BasketRepository
      */
     public static function getActive()
     {
-        if ($basket = Basket::getBySessionId(SessionService::getSessionId())) {
+        if ($basket = Basket::getBySessionId(SessionService::getInstance()->getSessionId())) {
             return $basket;
         }
 
